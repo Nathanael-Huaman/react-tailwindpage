@@ -7,7 +7,8 @@ export const MainProvider = ({children}) => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [order, setOrder] = useState(0);
+    const [orders, setOrders] = useState([]);
+    const [order, setOrder] = useState([]);
 
     const useApi = (valueUrl) => {    
         useEffect(() => {
@@ -32,11 +33,11 @@ export const MainProvider = ({children}) => {
         return {data,loading,error}
     }
 
-    const useAddItem = () =>{
-        setOrder(order+1)
+    const useAddItem = (id) =>{
+        setOrder([...order,id])
     }
     return (
-        <MainContext.Provider value={{data,loading,error,useApi,API,order,useAddItem}}>
+        <MainContext.Provider value={{orders,data,loading,error,useApi,API,order,useAddItem}}>
             {children}
         </MainContext.Provider>
     )

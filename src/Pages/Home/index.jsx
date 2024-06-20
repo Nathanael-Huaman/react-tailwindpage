@@ -24,6 +24,7 @@ const Home = () => {
                 title={product.title}
                 price={product.price}
                 add={useAddItem} 
+                id={product.id}
                 />)}
             </div>
             <ProductDetail />

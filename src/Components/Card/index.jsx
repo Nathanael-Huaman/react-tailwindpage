@@ -2,7 +2,7 @@ import { useState } from "react"
 import PropTypes from 'prop-types'
 
 
-const Card = ({category,url,title,price,add}) => {
+const Card = ({category,url,title,price,add,id}) => {
     const [imgSrc, setImgSrc] = useState(url)
     return(
         <div className="bg-white cursor-pointer w-56 h-60">
@@ -16,7 +16,7 @@ const Card = ({category,url,title,price,add}) => {
                 />
                 <button 
                 className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1"
-                onClick={add}
+                onClick={() => add(id)}
                 >+</button>
             </figure>
             <p className="flex justify-between">
@@ -32,7 +32,8 @@ Card.propTypes = {
     url: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-    add: PropTypes.any.isRequired
+    add: PropTypes.any.isRequired,
+    id: PropTypes.number.isRequired,
 }
 
 export { Card }

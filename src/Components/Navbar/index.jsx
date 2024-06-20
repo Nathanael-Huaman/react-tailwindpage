@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom"
 import { MainContext } from "../../assets/MainContext"
 
 const Navbar = () => {
-    const {order} = useContext(MainContext)
+    const {orders} = useContext(MainContext)
     const navbarLinks = [
         {   
             key:0,
@@ -62,7 +62,7 @@ const Navbar = () => {
         {   
             key:10,
             id:'/my-order',
-            text: `🛒 ${order}`,
+            text: `🛒 ${orders.length}`,
         },
     ]
     
