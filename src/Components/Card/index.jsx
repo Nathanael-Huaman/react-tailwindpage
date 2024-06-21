@@ -15,8 +15,8 @@ const Card = ({category,url,title,price,add,id}) => {
                 onError={() => setImgSrc("https://images.pexels.com/photos/1037992/pexels-photo-1037992.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")}
                 />
                 <button 
-                className="absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1"
-                onClick={() => add(id)}
+                className="hover:bg-black hover:text-white absolute top-0 right-0 flex justify-center items-center bg-white w-6 h-6 rounded-full m-2 p-1"
+                onClick={() => add(id,price)}
                 >+</button>
             </figure>
             <p className="flex justify-between">

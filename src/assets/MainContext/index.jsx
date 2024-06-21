@@ -3,12 +3,16 @@ import PropTypes from 'prop-types'
 export const MainContext = createContext()
 
 export const MainProvider = ({children}) => {
-    const API = 'https://fakestoreapi.com'
-    const [data, setData] = useState(null);
+    const API = 'http://localhost:3000/api'
+    const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [orders, setOrders] = useState([]);
     const [order, setOrder] = useState([]);
+    const [searched,setSearched] = useState("")
+    const [categorys,setCategorys] = useState(null)
+    const [total,setTotal] = useState(0)
+    const [openOrder,setOpenOrder] = useState(null)
 
     const useApi = (valueUrl) => {    
         useEffect(() => {
@@ -16,6 +20,7 @@ export const MainProvider = ({children}) => {
                 try {
                     const response = await fetch(valueUrl);
                     if (!response.ok) {
+                        
                         throw new Error('Network response was not ok');
                     }
                     const result = await response.json();
@@ -33,11 +38,12 @@ export const MainProvider = ({children}) => {
         return {data,loading,error}
     }
 
-    const useAddItem = (id) =>{
+    const useAddItem = (id,price) =>{
         setOrder([...order,id])
+        setTotal(total + price)
     }
     return (
-        <MainContext.Provider value={{orders,data,loading,error,useApi,API,order,useAddItem}}>
+        <MainContext.Provider value={{orders,data,loading,error,useApi,API,order,useAddItem,searched,setSearched,categorys,setCategorys,total,setTotal,openOrder,setOpenOrder}}>
             {children}
         </MainContext.Provider>
     )

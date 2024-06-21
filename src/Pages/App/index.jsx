@@ -29,7 +29,7 @@ function App() {
       <MainProvider>
         <BrowserRouter>
         <Navbar />
-        <Layout clases={'flex flex-row mt-20'}>
+        <Layout clases={'flex flex-row mt-20 justify-center'}>
           <AppRoutes />
         </Layout>
         </BrowserRouter>
