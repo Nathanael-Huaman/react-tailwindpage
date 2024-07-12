@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 export const MainContext = createContext()
 
 export const MainProvider = ({children}) => {
-    const API = 'https://api-l3qa59czz-nathanaelhuamans-projects.vercel.app/api'
+    const API = 'https://api-virid-two-17.vercel.app/api'
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
