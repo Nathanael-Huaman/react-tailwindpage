@@ -19,7 +19,7 @@ const Home = () => {
         <>
             <div className={`flex flex-row flex-wrap max-w-screen-lg w-full gap-8 justify-center`}>
                 <Search />
-                {searchProduct.map((product,index) => <Card 
+                {searchProduct.map((product) => <Card 
                 key={product.id} 
                 category={product.category}
                 url={product.image}
@@ -27,6 +27,7 @@ const Home = () => {
                 price={product.price}
                 add={useAddItem} 
                 id={product.id}
+                description={product.description}
                 />)}
                 <span>{(searchProduct.length == 0) && `No se encontro el producto ${searched}`}</span>
             </div>

@@ -1,15 +1,16 @@
 import { useContext } from "react"
 import { NavLink } from "react-router-dom"
 import { MainContext } from "../../assets/MainContext"
+import { HiMenu, HiOutlineX } from "react-icons/hi"
 
 const Navbar = () => {
-    const {order,categorys,setCategorys,openOrder,setOpenOrder} = useContext(MainContext)
+    const {order,categorys,setCategorys,openMenu,setOpenMenu,cartShop} = useContext(MainContext)
     const navbarLinks = [
         {   
             key:0,
             id:'/',
             text: 'Shopi',
-            clases: 'font-semibold text-lg',
+            clases: 'font-semibold text-lg lg:visible invisible',
         },
         {   
             key:1,
@@ -66,14 +67,14 @@ const Navbar = () => {
         },
     ]
     
-    const sendLinks = (id,text,key,cls) => {
-        const activeStyle = ( key !== 10 && key !== 0 ) ? 'underline underline-offset-4' : undefined
+    const sendLinks = (id,text,key,cls,active) => {
+        const activeStyle = active ? ( key !== 10 && key !== 0 ) ? 'underline underline-offset-4' : undefined : null
         return (
             <li className={cls} key={key}>
                 <NavLink 
                     to={id}
                     className={({isActive}) => (isActive && text === categorys) ? activeStyle : (!categorys && text === 'All') ? activeStyle : undefined}
-                    onClick={() => (text === 'All' || text === 'Shopi') ? setCategorys(null)  : (key===10) ? setOpenOrder(!openOrder) : setCategorys(text)}
+                    onClick={() => (text === 'All' || text === 'Shopi') ? setCategorys(null)  : (key===10) ? cartShop() : (text === 'My Orders' || text === 'My Account' || text === 'Sing In') ? setCategorys(categorys) : setCategorys(text)}
                     >
                     {text}
                 </NavLink>
@@ -83,23 +84,36 @@ const Navbar = () => {
 
     return(
         <>
-            <nav className="w-full flex justify-between items-center fixed z-10 py-5 px-8 text-sm font-light top-0 bg-white border shadow md:visible invisible">
+            <nav className="w-full justify-between items-center fixed z-10 py-5 px-8 text-sm font-light top-0 bg-white border shadow lg:flex hidden">
                 <ul className="flex items-center gap-4">
-                    {navbarLinks.map((link) => sendLinks(link.id,link.text,link.key,link.clases || undefined))}
+                    {navbarLinks.map((link) => sendLinks(link.id,link.text,link.key,link.clases || undefined,true))}
                 </ul>
                 <ul className="flex items-center gap-4">
                     <li key={'correo'}>rigel@xrigel.com</li>
-                    {navbarLinksRight.map((link) => sendLinks(link.id,link.text,link.key))}
+                    {navbarLinksRight.map((link) => sendLinks(link.id,link.text,link.key,undefined,true))}
                 </ul>
             </nav>
 
-            <nav className="w-full flex justify-between items-center fixed z-10 py-5 px-8 text-sm font-light top-0 bg-white border shadow md:visible invisible">
-                <ul>
-                    {sendLinks(navbarLinks[0].id,navbarLinks[0].text,navbarLinks[0].key,navbarLinks[0].clases || undefined)}
+            <nav className="w-full flex flex-col justify-between items-center fixed z-10 py-5 px-4 gap-4 text-sm font-light top-0 bg-white border shadow lg:hidden">
+                <div className="w-full flex justify-between">
+                    <ul>
+                        {sendLinks(navbarLinks[0].id,navbarLinks[0].text,navbarLinks[0].key,'font-semibold text-lg')}
+                    </ul>
+                    <button
+                        onClick={() => setOpenMenu(!openMenu)}
+                    >
+                        {openMenu ? <HiOutlineX className="text-3xl text-black" /> : <HiMenu className="text-3xl text-black"/> }
+                    </button>
+                </div>
+
+                <ul className={`w-full flex-col py-5 border-solid border-t border-gray-400 items-center gap-4 ${openMenu ? 'flex' : 'hidden'}`}>
+                    {navbarLinks.map((link) => (link.text !== 'Shopi') && sendLinks(link.id,link.text,link.key,'hover:border-blue-400 border-2 border-black w-full text-center p-2 rounded-xl' || undefined,false))}
                 </ul>
-                <button>
-                    
-                </button>
+                <ul className={`w-full flex-col py-5 border-solid border-t border-gray-400 items-center gap-4 ${openMenu ? 'flex' : 'hidden'}`}>
+                    <li key={'correo'}>rigel@xrigel.com</li>
+                    {navbarLinksRight.map((link) => sendLinks(link.id,link.text,link.key,'hover:border-blue-400 border-2 border-black w-full text-center p-2 rounded-xl' || undefined,false))}
+                </ul>
+
             </nav>
         </>
     )

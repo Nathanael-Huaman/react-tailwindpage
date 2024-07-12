@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { MainContext } from "../../assets/MainContext"
+import { HiX } from "react-icons/hi"
 
 const Search = () => {
     const {searched,setSearched} = useContext(MainContext)
@@ -19,9 +20,9 @@ const Search = () => {
                 onChange={(event) => setSearched(event.target.value)}
             />
             <button 
-            className={`w-4 flex items-center hover:font-semibold ${searched ? 'visible' : 'invisible' }`}
+            className={`w-4 flex items-center ${searched ? 'visible' : 'invisible' }`}
             onClick={() => setSearched('')}
-            >{searched ? 'X' : ''}</button>
+            >{searched ? <HiX className="text-xl hover:font-semibold hover:text-red-600" /> : ''}</button>
             </div>
         </div>
     )
