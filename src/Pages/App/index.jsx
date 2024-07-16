@@ -9,16 +9,21 @@ import { SingIn } from '../SingIn'
 import './App.css'
 import { Navbar } from '../../Components/Navbar'
 import { Layout } from '../../Components/Layout'
-import { MainProvider } from '../../assets/MainContext'
+import { MainContext, MainProvider } from '../../assets/MainContext'
+import { useContext } from 'react'
+import { SingUp } from '../SingUp'
 
 const AppRoutes = () => {
+  const {login,useLocalStorage} = useContext(MainContext)
+  useLocalStorage('Login',false)
   let routes = useRoutes([
-    {path: '/', element: <Home />},
-    {path: '/my-account', element: <MyAccount />},
-    {path: '/my-order/:id', element: <MyOrder />},
-    {path: '/my-orders', element: <MyOrders />},
-    {path: '/sing-in', element: <SingIn />},
-    {path: '/*', element: <NotFound />},
+    {path: '/', element: login === false ? <SingIn /> : <Home />},
+    {path: '/my-account', element: login === false ? <SingIn /> : <MyAccount />},
+    {path: '/my-order/:id', element: login === false ? <SingIn /> : <MyOrder />},
+    {path: '/my-orders', element: login === false ? <SingIn /> : <MyOrders />},
+    {path: '/sing-in', element: login === false ? <SingIn /> : <SingIn />},
+    {path: '/sing-up', element: login === false ? <SingUp /> : <SingUp />},
+    {path: '/*', element: login === false ? <NotFound /> : <NotFound />},
   ])
   return routes
 }

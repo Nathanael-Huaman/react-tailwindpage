@@ -13,7 +13,8 @@ const Search = () => {
             <div className="flex border-2 border-black rounded-lg md:w-2/6 w-full">
             <input
                 type="input"
-                name="search" 
+                name="search"
+                id="search" 
                 placeholder="Search a product"
                 className="p-3 focus:outline-none rounded-lg w-[calc(100%-20px)]"
                 value={searched}

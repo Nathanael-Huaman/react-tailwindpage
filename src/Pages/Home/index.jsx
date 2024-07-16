@@ -3,12 +3,16 @@ import { Card } from "../../Components/Card"
 import { MainContext } from "../../assets/MainContext";
 import { ProductDetail } from "../../Components/ProductDetail";
 import { Search } from "../../Components/Search";
+import { Notification } from "../../Components/Notifications";
 
 
 
 const Home = () => {
-    const {useApi,API,loading,error,data,useAddItem,searched,categorys} = useContext(MainContext)
+    const {notification, setNotification,useApi,API,loading,error,data,useAddItem,searched,categorys} = useContext(MainContext)
     useApi(`${API}/products`)
+    const handleCloseNotification = () => {
+        setNotification(null);
+    };
     const searchProduct = data.filter((product) => {
         return categorys ? (product.category.toLowerCase().includes(categorys.toLowerCase()) && product.title.toLowerCase().includes(searched.toLowerCase())) : product.title.toLowerCase().includes(searched.toLowerCase())
         
@@ -32,6 +36,13 @@ const Home = () => {
                 <span>{(searchProduct.length == 0) && `No se encontro el producto ${searched}`}</span>
             </div>
             <ProductDetail />
+            {notification && (
+                <Notification 
+                    message={notification} 
+                    duration={4500} // 10 segundos en milisegundos
+                    onClose={handleCloseNotification}
+                />
+            )}
         </>
     )
 }

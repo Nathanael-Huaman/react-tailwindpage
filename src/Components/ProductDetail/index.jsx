@@ -32,8 +32,7 @@ const ProductDetail = () => {
         setOrders(updateArray),
         setOrder([]),
         setTotal(0),
-        cartShop(),
-        console.log(orders))
+        cartShop())
         // console.log([...newArray,{items:order,total:total}])
         // setOrders([...orders,[items=order,total=total]])
     }
