@@ -25,9 +25,6 @@ const SingIn = () => {
         const {User:usuario,password,errors} = formData
         const user = localData.filter( item => item.user === usuario)
         const checkPassword = (user && user.length > 0) ? !(password === user[0].password) : true
-        console.log(password)
-        console.log(user[0].password)
-        console.log(checkPassword)
         setFormData({...formData,
             errors:{...errors,
                 checkPassword:checkPassword,
