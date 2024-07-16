@@ -31,10 +31,10 @@ const SingIn = () => {
             }
         })
         try {
-            !checkPassword && localStorage.setItem('Login',JSON.stringify(true))
-            setLogin(true)
-            setNotification('Sign In successful!!')
-            navigate('/')
+            !checkPassword && (localStorage.setItem('Login',JSON.stringify(true)),
+            setLogin(true),
+            setNotification('Sign In successful!!'),
+            navigate('/'))
         } catch (error) {
             setNotification('unexpected error')
             setLogin(false)
